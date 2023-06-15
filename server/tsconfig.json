@@ -1,10 +1,9 @@
 {
   "compilerOptions": {
+    "target": "es2016",
+    "moduleResolution": "NodeNext",
     "module": "NodeNext",
-    "moduleResolution": "nodenext",
-    "target": "es5",
     "sourceMap": true,
     "outDir": "dist"
-  },
-  "include": ["src/**/*"],
+  }
 }
