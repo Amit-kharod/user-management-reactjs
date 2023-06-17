@@ -6,7 +6,6 @@ export const User = ({ data }: { data: IUser }) => {
 
   return (
     <div
-      key={data._id}
       className="col-span-12 lg:col-span-6 2xl:col-span-4 gap-2 w-[100%] py-5 border-2 rounded-lg flex justify-center flex-col hover:bg-gray-100"
     >
       <div className="flex gap-5 items-center p-5 sm:mx-3">

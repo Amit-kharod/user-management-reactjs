@@ -48,10 +48,15 @@ router.post(
     } catch (error) {
       if (error.code === 11000) {
         if (error.keyValue.email)
-          return res.status(500).json({ message: 'Email already registered' });
+          return res
+            .status(500)
+            .json({ type: 'email', message: 'Email already registered' });
         return res
           .status(500)
-          .json({ message: 'Phone number already registered' });
+          .json({
+            type: 'phoneNumber',
+            message: 'Phone number already registered',
+          });
       }
       res.status(500).json({ message: error });
     }

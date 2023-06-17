@@ -21,7 +21,7 @@ export const Users = () => {
   return (
     <div className="grid w-[90vw] grid-cols-12 gap-5 mx-auto my-20 text-xs sm:text-base">
       {allUsers?.map((data) => {
-        return <User data={data} />;
+        return <User key={data._id} data={data} />;
       })}
     </div>
   );
