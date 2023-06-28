@@ -51,8 +51,8 @@ export const AddUserForm = () => {
         }
       );
     } catch (error:any) {
-      NewUserForm.setError('email',error.response.data);
-      console.log(error.response.data.message);
+      NewUserForm.setError(error.response.data.type,{message: error.response.data.message});
+      console.log(error.response.data.type);
     }
 
   };
