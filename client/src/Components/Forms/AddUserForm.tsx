@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
@@ -13,6 +14,7 @@ import {
 import { Button } from '../UI/button';
 import { Input } from '../UI/input';
 import axios from 'axios';
+import { TailSpin } from 'react-loader-spinner';
 
 const formSchema = z.object({
   userName: z
@@ -26,16 +28,22 @@ const formSchema = z.object({
   phoneNumber: z
     .string()
     .min(10, { message: 'Moible number must contain 10 characters' })
-    .max(10, { message: 'Moible number must contain 10 characters' }),
+    .max(10, { message: 'Moible number must contain 10 characters' })
+    .refine((val) => !Number.isNaN(parseInt(val, 10)), {
+      message: 'Expected number, received a string',
+    }),
 });
 
-export const AddUserForm = () => {
+export const AddUserForm = ({
+  addUserHandler,
+}: {
+  addUserHandler: () => void;
+}) => {
   const NewUserForm = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       userName: '',
       email: '',
-      phoneNumber: '',
     },
   });
 
@@ -50,11 +58,14 @@ export const AddUserForm = () => {
           },
         }
       );
-    } catch (error:any) {
-      NewUserForm.setError(error.response.data.type,{message: error.response.data.message});
-      console.log(error.response.data.type);
+    } catch (error: any) {
+      console.error(error);
+      NewUserForm.setError(error.response.data.type, {
+        message: error.response.data.message,
+      });
+      return;
     }
-
+    addUserHandler();
   };
 
   return (
@@ -103,7 +114,26 @@ export const AddUserForm = () => {
               </FormItem>
             )}
           />
-          <Button type="submit">Add User</Button>
+          <Button
+            disabled={NewUserForm.formState.isSubmitting}
+            className="w-24"
+            type="submit"
+          >
+            {NewUserForm.formState.isSubmitting ? (
+              <TailSpin
+                height="20"
+                width="20"
+                color="#fff"
+                ariaLabel="tail-spin-loading"
+                radius="1"
+                wrapperStyle={{}}
+                wrapperClass=""
+                visible={true}
+              />
+            ) : (
+              'Add'
+            )}
+          </Button>
         </form>
       </Form>
     </div>

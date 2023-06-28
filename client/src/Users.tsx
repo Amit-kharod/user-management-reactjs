@@ -1,10 +1,15 @@
-import { useEffect, useState } from 'react';
+import { Dispatch, useEffect, useState } from 'react';
 import { User } from './Components/User';
 import IUser from './Interfaces/IUser';
 import axios from 'axios';
 import { UsersLoading } from './Components/UI/UsersLoading';
 
-export const Users = () => {
+interface IUsersProps {
+  reloadUsers: boolean;
+  setReloadUsers: Dispatch<React.SetStateAction<boolean>>
+}
+
+export const Users = ({reloadUsers, setReloadUsers}:IUsersProps) => {
   const [allUsers, setAllUsers] = useState<IUser[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -19,7 +24,7 @@ export const Users = () => {
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  }, [reloadUsers]);
 
   return (
     <div className="grid w-[90vw] grid-cols-12 gap-5 mx-auto my-20 text-xs sm:text-base">
