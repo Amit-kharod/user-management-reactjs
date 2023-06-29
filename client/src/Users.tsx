@@ -16,7 +16,7 @@ export const Users = ({
   editButtonHandler,
 }: IUsersProps) => {
   return (
-    <div className="grid w-[90vw] grid-cols-12 gap-5 mx-auto my-10 sm:my-20 text-xs sm:text-base">
+    <div className="grid w-[90vw] grid-cols-12 gap-5 mx-auto mb-40 my-10 sm:my-20 text-xs sm:text-base">
       {isLoading ? (
         <UsersLoading />
       ) : allUsers && allUsers.length > 0 ? (
