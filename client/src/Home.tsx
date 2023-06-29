@@ -32,6 +32,7 @@ function App() {
 
   useEffect(() => {
     const getUsers = async () => {
+      setIsLoading(true);
       const { data } = await axios.get(`${import.meta.env.VITE_API}/users`);
       setAllUsers(data);
       setIsLoading(false);
@@ -45,6 +46,11 @@ function App() {
 
   const addUserHandler = () => {
     setNewUserModel(false);
+    setReloadUsers(!reloadUsers);
+  };
+
+  const editUserHandler = () => {
+    setEditUserModel(false);
     setReloadUsers(!reloadUsers);
   };
 
@@ -77,6 +83,7 @@ function App() {
     }
   };
 
+
   const addUser = (
     <Dialog open={newUserModel} onOpenChange={setNewUserModel}>
       <DialogContent>
@@ -94,8 +101,8 @@ function App() {
         <DialogHeader>
           <DialogTitle className="text-center">Edit User</DialogTitle>
           <EditUserForm
-            data={currentSelectedUser}
-            addUserHandler={addUserHandler}
+            userData={currentSelectedUser}
+            editUserHandler={editUserHandler}
           />
         </DialogHeader>
       </DialogContent>

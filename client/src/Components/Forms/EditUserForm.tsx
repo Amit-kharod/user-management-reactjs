@@ -36,25 +36,26 @@ const formSchema = z.object({
 });
 
 export const EditUserForm = ({
-  data,
-  addUserHandler,
+  userData,
+  editUserHandler,
 }: {
-  data: IUser;
-  addUserHandler: () => void;
+  userData: IUser;
+  editUserHandler: () => void;
 }) => {
   const NewUserForm = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      userName: '',
-      email: '',
+      userName: userData.userName,
+      email: userData.email,
+      phoneNumber: String(userData.phoneNumber),
     },
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       const { data } = await axios.post(
-        `${import.meta.env.VITE_API}/users`,
-        values,
+        `${import.meta.env.VITE_API}/editUser`,
+        {...values, _id: userData._id},
         {
           headers: {
             'Content-Type': 'application/json',
@@ -68,7 +69,7 @@ export const EditUserForm = ({
       });
       return;
     }
-    addUserHandler();
+    editUserHandler();
   };
 
   return (
@@ -134,7 +135,7 @@ export const EditUserForm = ({
                 visible={true}
               />
             ) : (
-              'Add'
+              'Update'
             )}
           </Button>
         </form>
