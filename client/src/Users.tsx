@@ -18,7 +18,7 @@ export const Users = ({
   editButtonHandler,
 }: IUsersProps) => {
   return (
-    <div className="grid w-[90vw] grid-cols-12 gap-5 mx-auto my-20 text-xs sm:text-base">
+    <div className="grid w-[90vw] grid-cols-12 gap-5 mx-auto my-10 sm:my-20 text-xs sm:text-base">
       {isLoading ? (
         <UsersLoading />
       ) : allUsers && allUsers.length > 0 ? (
@@ -33,7 +33,7 @@ export const Users = ({
           );
         })
       ) : (
-        <h2 className="flex h-[60vh] w-[100vw] justify-center items-center text-2xl font-black text-gray-300">
+        <h2 className="flex h-[60vh] w-[100vw] justify-center items-center text-2xl font-bold text-gray-300">
           No users found...
         </h2>
       )}

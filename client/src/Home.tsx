@@ -82,6 +82,19 @@ function App() {
     }
   };
 
+  const refillHandler = async () => {
+    console.log('hello')
+    try {
+      setIsLoading(true);
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_API}/users/refill`
+      );
+      setAllUsers(data);
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const addUser = (
     <Dialog open={newUserModel} onOpenChange={setNewUserModel}>
@@ -126,14 +139,14 @@ function App() {
 
   return (
     <>
-      <Navbar setNewUserModel={setNewUserModel} />
+      <Navbar refillHandler={refillHandler} setNewUserModel={setNewUserModel} />
       <Users
         isLoading={isLoading}
         allUsers={allUsers}
         deleteButtonHandler={deleteButtonHandler}
         editButtonHandler={editButtonHandler}
       />
-      <Footer/>
+      <Footer />
       {addUser}
       {editUser}
       {deleteUser}
