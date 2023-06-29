@@ -5,33 +5,40 @@ import axios from 'axios';
 import { UsersLoading } from './Components/UI/UsersLoading';
 
 interface IUsersProps {
-  reloadUsers: boolean;
-  setReloadUsers: Dispatch<React.SetStateAction<boolean>>
+  isLoading: boolean;
+  allUsers: IUser[] | null;
+  deleteButtonHandler: (data: IUser) => void;
+  editButtonHandler: (data: IUser) => void;
 }
 
-export const Users = ({reloadUsers, setReloadUsers}:IUsersProps) => {
-  const [allUsers, setAllUsers] = useState<IUser[] | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const getUsers = async () => {
-      const { data } = await axios.get(`${import.meta.env.VITE_API}/users`);
-      setAllUsers(data);
-      setIsLoading(false);
-    };
-    try {
-      getUsers();
-    } catch (error) {
-      console.log(error);
-    }
-  }, [reloadUsers]);
-
+export const Users = ({
+  isLoading,
+  allUsers,
+  deleteButtonHandler,
+  editButtonHandler,
+}: IUsersProps) => {
   return (
-    <div className="grid w-[90vw] grid-cols-12 gap-5 mx-auto my-20 text-xs sm:text-base">
-      {isLoading && <UsersLoading />}
-      {allUsers?.map((data) => {
-        return <User key={data._id} data={data} />;
-      })}
-    </div>
+    <>
+      {allUsers && allUsers.length > 0 ? (
+        <div className="grid w-[90vw] grid-cols-12 gap-5 mx-auto my-20 text-xs sm:text-base">
+          {isLoading ? (
+            <UsersLoading />
+          ) : (
+            allUsers.map((data) => {
+              return (
+                <User
+                  key={data._id}
+                  data={data}
+                  deleteButtonHandler={deleteButtonHandler}
+                  editButtonHandler={editButtonHandler}
+                />
+              );
+            })
+          )}
+        </div>
+      ) : (
+        <h2 className="flex h-[80vh] w-[100vw] justify-center items-center text-5xl text-slate-600">No users found...</h2>
+      )}
+    </>
   );
 };
