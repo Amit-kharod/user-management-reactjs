@@ -69,18 +69,20 @@ router.post(
   }
 );
 
-// @route  POST api/users
-// @desc   add new user
+// @route  POST api/users/refill
+// @desc   refill demo users
 // @access  Public
 router.post('/refill', async (req: express.Request, res: express.Response) => {
   try {
     await User.deleteMany();
-    dummyData.map(async (data) => {
-      const newUser = new User(data);
-      await newUser.save();
-    });
+    await Promise.all(
+      dummyData.map(async (data) => {
+        const newUser = new User(data);
+        await newUser.save();
+      })
+    );
     const users = await User.find();
-    return res.status(200).json({ message: 'Success' });
+    return res.status(200).json(users);
   } catch (error) {
     res.status(500).json({ message: error });
   }
