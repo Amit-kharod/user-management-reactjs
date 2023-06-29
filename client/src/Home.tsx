@@ -5,15 +5,14 @@ import IUser from './Interfaces/IUser';
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from './Components/UI/dialog';
 import { AddUserForm } from './Components/Forms/AddUserForm';
 import { EditUserForm } from './Components/Forms/EditUserForm';
 import { Button } from './Components/UI/button';
 import axios from 'axios';
+import { Footer } from './Components/Footer';
 
 function App() {
   const [editUserModel, setEditUserModel] = useState(false);
@@ -134,6 +133,7 @@ function App() {
         deleteButtonHandler={deleteButtonHandler}
         editButtonHandler={editButtonHandler}
       />
+      <Footer/>
       {addUser}
       {editUser}
       {deleteUser}

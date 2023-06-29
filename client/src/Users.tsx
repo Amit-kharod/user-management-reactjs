@@ -7,7 +7,6 @@ import { UsersLoading } from './Components/UI/UsersLoading';
 interface IUsersProps {
   isLoading: boolean;
   allUsers: IUser[] | null;
-  reloadUsers: boolean;
   deleteButtonHandler: (data: IUser) => void;
   editButtonHandler: (data: IUser) => void;
 }
