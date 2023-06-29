@@ -1,7 +1,5 @@
-import { Dispatch, useEffect, useState } from 'react';
 import { User } from './Components/User';
 import IUser from './Interfaces/IUser';
-import axios, { all } from 'axios';
 import { UsersLoading } from './Components/UI/UsersLoading';
 
 interface IUsersProps {

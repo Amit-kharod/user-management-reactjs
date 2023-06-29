@@ -1,11 +1,9 @@
-import { Dispatch, SetStateAction } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -49,7 +47,7 @@ export const AddUserForm = ({
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const { data } = await axios.post(
+      await axios.post(
         `${import.meta.env.VITE_API}/users`,
         values,
         {

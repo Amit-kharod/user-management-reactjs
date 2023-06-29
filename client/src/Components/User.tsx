@@ -1,4 +1,3 @@
-import React, { Dispatch } from 'react';
 import IUser from '../Interfaces/IUser';
 import { Edit, Trash2 } from 'lucide-react';
 
