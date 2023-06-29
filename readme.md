@@ -59,7 +59,9 @@ npm run start
 ```
 
 ## Screenshots
-####Homepage
+#### Homepage
+
 [![React-Users](./client//public/screenshots/main.png)](https://reactjs-users.vercel.app/)
-####Adding new user
+#### Adding new user
+
 [![React-Users](./client//public/screenshots/validation.png)](https://reactjs-users.vercel.app/)
