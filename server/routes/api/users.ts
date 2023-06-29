@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import User from '../../models/User';
 import { check, validationResult } from 'express-validator';
 import gravatar from 'gravatar';
+import { dummyData } from '../../data/dummyData';
 
 const router = express.Router();
 
@@ -58,14 +59,32 @@ router.post(
           return res
             .status(500)
             .json({ type: 'email', message: 'Email already registered' });
-        return res
-          .status(500)
-          .json({  type: 'phoneNumber', message: 'Phone number already registered' });
+        return res.status(500).json({
+          type: 'phoneNumber',
+          message: 'Phone number already registered',
+        });
       }
       res.status(500).json({ message: error });
     }
   }
 );
+
+// @route  POST api/users
+// @desc   add new user
+// @access  Public
+router.post('/refill', async (req: express.Request, res: express.Response) => {
+  try {
+    await User.deleteMany();
+    dummyData.map(async (data) => {
+      const newUser = new User(data);
+      await newUser.save();
+    });
+    const users = await User.find();
+    return res.status(200).json({ message: 'Success' });
+  } catch (error) {
+    res.status(500).json({ message: error });
+  }
+});
 
 // @route  DELETE api/users
 // @desc   delete a user
